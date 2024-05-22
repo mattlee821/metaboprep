@@ -19,25 +19,27 @@
 #' @examples
 #' 
 #'
-generate_report = function(full_path_2_Rdatafile = "ReportData.Rdata", dir_4_report = "./", path_2_Rmd_template = file.path( system.file("rmarkdown", package="metaboprep"), "metaboprep_Report_v0.Rmd" ) ){
-   ## package check
-   pkgs = c("knitr")
-   for(pkg in pkgs){
-    if (!requireNamespace( pkg, quietly = TRUE)) {
-        stop(paste0("Package \"", pkg,"\" needed for generate_report() function to work. Please install it."),call. = FALSE)
-      }
-   }
-
-   ## load R data file to environment
-   message("Loading the R data file")
-   load(full_path_2_Rdatafile)
-
-   ## knit report
-   message("knit the report to html")
-   knitr::knit2html( 
-      input = path_2_Rmd_template,
-      output = paste0(dir_4_report, "metaboprep_summary_report.html") 
-      )
+generate_report <- function(full_path_2_Rdatafile, dir_4_report, path_2_Rmd_template = file.path( system.file("rmarkdown", package="metaboprep"), "metaboprep_Report_v0.Rmd")) {
+  # Load the R data file
+  cat("Loading the R data file\n")
+  load(full_path_2_Rdatafile)
+  
+  # Define the output file path
+  output_file <- file.path(dir_4_report, paste0("metaboprep_report_", Sys.Date(), ".html"))
+  
+  # Ensure the directory for the report exists
+  if (!dir.exists(dir_4_report)) {
+    dir.create(dir_4_report, recursive = TRUE)
+  }
+  
+  # Render the R Markdown document
+  cat("Knit the report to html\n")
+  rmarkdown::render(input = path_2_Rmd_template, 
+                    output_file = output_file,
+                    params = list(full_path_2_Rdatafile = full_path_2_Rdatafile))
+  
+  cat("Report generated at:", output_file, "\n")
 }
+
 
 
