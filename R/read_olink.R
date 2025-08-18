@@ -46,7 +46,16 @@ read_olink_v1 <- function(filepath) {
   
   
   # read data ====
-  df <- OlinkAnalyze::read_NPX(filepath)
+  if (grepl("(?i)\\.zip$", filepath)) {
+    df <- OlinkAnalyze::read_npx_zip(filepath)
+  } else if (grepl("(?i)\\.parquet$", filepath)) {
+    df <- OlinkAnalyze::read_npx_parquet(filepath)
+  } else if (grepl("(?i)\\.(csv|txt|xls|xlsx)$", filepath)) {
+    df <- OlinkAnalyze::read_npx_csv(filepath)
+  } else {
+    stop("Unsupported file type detected after initial check. Expected zip, parquet, csv, txt, xls, or xlsx.", call. = FALSE)
+  }
+  
   if (!"SampleID" %in% colnames(df)) {
     stop("Column 'SampleID' not found in the dataset. Either your data is not Olink or you have renamed your sample column for some reason. Suggest you use an alternative approach to reading in your data (see Vignette XXX).", call. = FALSE)
   }
