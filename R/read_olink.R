@@ -67,11 +67,16 @@ read_olink <- function(filepath, return_Metaboprep = FALSE) {
   control_metadata <- NULL
   
   
+  # identify sample type column ====
+  sample_type_col <- intersect(c("Sample_Type", "SampleType"), colnames(df))
+  
   # feature data for SAMPLES ====
-  ## olink have multiple versions, some have a Sample_Type column (SAMPLE, CONTROL) some don't and instead have "CONTROL" in SampleID column
-  if ("Sample_Type" %in% colnames(df)) {
+  ## olink have multiple versions, some have a Sample_Type/SampleType column (SAMPLE, CONTROL) some don't and instead have "CONTROL" in SampleID column
+  if (length(sample_type_col) > 0) {
     
-    df_features_samples <- df[df$Sample_Type == "SAMPLE" & !grepl("empty well", df$SampleID, ignore.case = TRUE), ]
+    # Use the first one found
+    st_col <- sample_type_col[1]
+    df_features_samples <- df[df[[st_col]] == "SAMPLE" & !grepl("empty well", df$SampleID, ignore.case = TRUE), ]
     
   } else if (any(grepl("CONTROL", df$SampleID, ignore.case = TRUE))) {
     
@@ -79,7 +84,7 @@ read_olink <- function(filepath, return_Metaboprep = FALSE) {
     
   } else {
     
-    stop("The dataset does not contain a 'Sample_Type' column or any 'CONTROL' entries in 'SampleID'. It is likely not an Olink file. Suggest you use an alternative approach to reading in your data (see Vignette XXX)", call. = FALSE)
+    stop("The dataset does not contain a 'Sample_Type' or 'SampleType' column or any 'CONTROL' entries in 'SampleID'. It is likely not an Olink file. Suggest you use an alternative approach to reading in your data (see Vignette XXX)", call. = FALSE)
   
   }
 
@@ -89,10 +94,11 @@ read_olink <- function(filepath, return_Metaboprep = FALSE) {
     
   
   # feature data for CONTROLS ====
-  ## olink have multiple versions, some have a Sample_Type column (SAMPLE, CONTROL) some don't and instead have "CONTROL" in SampleID column
-  if ("Sample_Type" %in% colnames(df)) {
+  ## olink have multiple versions, some have a Sample_Type/SampleType column (SAMPLE, CONTROL/SAMPLE_CONTROL) some don't and instead have "CONTROL" in SampleID column
+  if (length(sample_type_col) > 0) {
     
-    df_features_controls <- df[df$Sample_Type == "CONTROL" | grepl("empty well", df$SampleID, ignore.case = TRUE), ]
+    st_col <- sample_type_col[1]
+    df_features_controls <- df[(df[[st_col]] %in% c("CONTROL", "SAMPLE_CONTROL") | grepl("SAMPLE_CONTROL", df[[st_col]], ignore.case = TRUE)) | grepl("empty well", df$SampleID, ignore.case = TRUE), ]
     
   } else if (any(grepl("CONTROL", df$SampleID, ignore.case = TRUE))) {
     
@@ -100,7 +106,7 @@ read_olink <- function(filepath, return_Metaboprep = FALSE) {
   
   } else {
     
-    stop("The dataset does not contain a 'Sample_Type' column or any 'CONTROL' entries in 'SampleID'. It is likely not an Olink file. Suggest you use an alternative approach to reading in your data (see Vignette XXX)", call. = FALSE)
+    stop("The dataset does not contain a 'Sample_Type' or 'SampleType' column or any 'CONTROL' entries in 'SampleID'. It is likely not an Olink file. Suggest you use an alternative approach to reading in your data (see Vignette XXX)", call. = FALSE)
   
   }
   
