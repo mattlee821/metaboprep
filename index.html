@@ -6,20 +6,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Metabolomics data preparation and processing pipeline • metaboprep</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Metabolomics data preparation and processing pipeline">
-<meta name="description" content="| Reads in raw Metabolon and Nightingale xls sheets and aids in data preparation of all metabolomics data sets.">
-<meta property="og:description" content="| Reads in raw Metabolon and Nightingale xls sheets and aids in data preparation of all metabolomics data sets.">
+<meta name="description" content="| Reads in raw Metabolon, Nightingale Health, Olink, and SomaLogic xls sheets, or flat text files and aids in data preparation of all metabolomics &amp; proteomics data sets.">
+<meta property="og:description" content="| Reads in raw Metabolon, Nightingale Health, Olink, and SomaLogic xls sheets, or flat text files and aids in data preparation of all metabolomics &amp; proteomics data sets.">
 <meta property="og:image" content="https://mrcieu.github.io/metaboprep/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">metaboprep</a>
 
@@ -36,12 +41,25 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/batch_normalise.html">Batch Normalise</a></li>
-    <li><a class="dropdown-item" href="articles/feature_summary.html">Feature summary</a></li>
-    <li><a class="dropdown-item" href="articles/generate_report.html">Generate QC Report</a></li>
-    <li><a class="dropdown-item" href="articles/pc_and_outliers.html">PCA outliers</a></li>
-    <li><a class="dropdown-item" href="articles/sample_summary.html">Sample summary</a></li>
-    <li><a class="dropdown-item" href="articles/summarise.html">Summarise</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Importing Data</h6></li>
+    <li><a class="dropdown-item" href="articles/metabolon.html">Metabolon</a></li>
+    <li><a class="dropdown-item" href="articles/nightingale.html">Nightingale</a></li>
+    <li><a class="dropdown-item" href="articles/olink.html">Olink</a></li>
+    <li><a class="dropdown-item" href="articles/somalogic.html">Somalogic</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Summaries</h6></li>
+    <li><a class="dropdown-item" href="articles/sample_summary.html">Samples</a></li>
+    <li><a class="dropdown-item" href="articles/feature_summary.html">Features</a></li>
+    <li><a class="dropdown-item" href="articles/quality_control.html">QC pipeline</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Reports</h6></li>
+    <li><a class="dropdown-item" href="articles/generate_report.html">Generate HTML/PDF</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exporting Data</h6></li>
+    <li><a class="dropdown-item" href="articles/export.html">Export</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Other</h6></li>
+    <li><a class="dropdown-item" href="articles/batch_normalise.html">Batch normalisation</a></li>
   </ul>
 </li>
       </ul>
@@ -49,6 +67,14 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -66,22 +92,134 @@
 <!-- <div style="text-align: center"> -->
 <!--   <img src="man/figures/logo.png" alt="metaboprep logo" width="150"/>  -->
 <!-- </div> -->
-<p>The goal of metaboprep is to …</p>
+<p>The goal of <code>metaboprep</code> is to:</p>
+<ol style="list-style-type: decimal">
+<li>Read in and processes (un)targeted metabolite data, saving datasets in tab-delimited format for use elsewhere</li>
+<li>Provide useful summary data in the form of tab-delimited text file and a html report.<br>
+</li>
+<li>Perform data filtering on the data set using a standard pipeline and according to user-defined thresholds.</li>
+</ol>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of metaboprep from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of metaboprep from <a href="https://github.com/MRCIEU/metaboprep/tree/v2_development" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"MRCIEU/metaboprep"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="cheatsheet">Cheatsheet<a class="anchor" aria-label="anchor" href="#cheatsheet"></a>
+</h2>
+<figure><img src="reference/figures/cheatsheet.png" alt="Cheatsheet"><figcaption aria-hidden="true">
+Cheatsheet
+</figcaption></figure>
+</div>
+<div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>This is a basic example which shows you how to load data and run the <code>metaboprep</code> quality control pipeline.</p>
+<div class="section level3">
+<h3 id="read-data-into-r-and-create-the-metaboprep-object">Read data into R and create the Metaboprep object<a class="anchor" aria-label="anchor" href="#read-data-into-r-and-create-the-metaboprep-object"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mrcieu.github.io/metaboprep/">metaboprep</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
+<span></span>
+<span><span class="co"># import data </span></span>
+<span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_metabolon.html">read_metabolon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"metabolon_v1.1_example.xlsx"</span>, package <span class="op">=</span> <span class="st">"metaboprep"</span><span class="op">)</span>, </span>
+<span>                         sheet             <span class="op">=</span> <span class="st">"OrigScale"</span>, <span class="co">## The name of the sheet in the excel file to read in</span></span>
+<span>                         return_Metaboprep <span class="op">=</span> <span class="cn">FALSE</span>        <span class="co">## Whether to return a Metaboprep object (TRUE) or a list (FALSE)</span></span>
+<span>                         <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># create metaboprep object</span></span>
+<span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/class_metaboprep.html">Metaboprep</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">data</span>, </span>
+<span>                     features <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">features</span>, </span>
+<span>                     samples  <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">samples</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="run-the-quality-control-pipeline">Run the quality control pipeline<a class="anchor" aria-label="anchor" href="#run-the-quality-control-pipeline"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># run QC</span></span>
+<span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="va">mydata</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/quality_control.html">quality_control</a></span><span class="op">(</span> source_layer        <span class="op">=</span> <span class="st">"input"</span>, </span>
+<span>                                     sample_missingness  <span class="op">=</span> <span class="fl">0.2</span>, </span>
+<span>                                     feature_missingness <span class="op">=</span> <span class="fl">0.2</span>, </span>
+<span>                                     total_peak_area_sd  <span class="op">=</span> <span class="fl">5</span>, </span>
+<span>                                     outlier_udist       <span class="op">=</span> <span class="fl">5</span>, </span>
+<span>                                     outlier_treatment   <span class="op">=</span> <span class="st">"leave_be"</span>, </span>
+<span>                                     winsorize_quantile  <span class="op">=</span> <span class="fl">1.0</span>, </span>
+<span>                                     tree_cut_height     <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span>                                     pc_outlier_sd       <span class="op">=</span> <span class="fl">5</span>, </span>
+<span>                                     sample_ids          <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>                                     feature_ids         <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── Starting Metabolite QC Process ──────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Validating input parameters✔ Validating input parameters [4ms]</span></span>
+<span><span class="co">#&gt; ℹ Sample &amp; Feature Summary Statistics for raw data✔ Sample &amp; Feature Summary Statistics for raw data [540ms]</span></span>
+<span><span class="co">#&gt; ℹ Copying input data to new 'qc' data layer✔ Copying input data to new 'qc' data layer [10ms]</span></span>
+<span><span class="co">#&gt; ℹ Assessing for extreme sample missingness &gt;=80% - excluding 0 sample(s)✔ Assessing for extreme sample missingness &gt;=80% - excluding 0 sample(s) [7ms]</span></span>
+<span><span class="co">#&gt; ℹ Assessing for extreme feature missingness &gt;=80% - excluding 0 feature(s)✔ Assessing for extreme feature missingness &gt;=80% - excluding 0 feature(s) [7ms]</span></span>
+<span><span class="co">#&gt; ℹ Assessing for sample missingness at specified level of &gt;=20% - excluding 0 sa…✔ Assessing for sample missingness at specified level of &gt;=20% - excluding 2 sa…</span></span>
+<span><span class="co">#&gt; ℹ Assessing for feature missingness at specified level of &gt;=20% - excluding 0 f…✔ Assessing for feature missingness at specified level of &gt;=20% - excluding 0 f…</span></span>
+<span><span class="co">#&gt; ℹ Calculating total peak abundance outliers at +/- 5 Sdev - excluding 0 sample(…✔ Calculating total peak abundance outliers at +/- 5 Sdev - excluding 0 sample(…</span></span>
+<span><span class="co">#&gt; ℹ Running sample data PCA outlier analysis at +/- 5 Sdev✔ Running sample data PCA outlier analysis at +/- 5 Sdev [8ms]</span></span>
+<span><span class="co">#&gt; ℹ Sample PCA outlier analysis - re-identify feature independence and PC outlier…ℹ Sample PCA outlier analysis - re-identify feature independence and PC outlier…                                                                                 ! The stated max PCs [max_num_pcs=10] to use in PCA outlier assessment is greater than the number of available informative PCs [2]</span></span>
+<span><span class="co">#&gt; ℹ Sample PCA outlier analysis - re-identify feature independence and PC outlier…✔ Sample PCA outlier analysis - re-identify feature independence and PC outlier…</span></span>
+<span><span class="co">#&gt; ℹ Creating final QC dataset...✔ Creating final QC dataset... [409ms]</span></span>
+<span><span class="co">#&gt; ℹ Metabolite QC Process Completed✔ Metabolite QC Process Completed [9ms]</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="view-a-summary-of-the-metaboprep-object">View a summary of the Metaboprep object<a class="anchor" aria-label="anchor" href="#view-a-summary-of-the-metaboprep-object"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># view summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Metaboprep Object Summary</span></span>
+<span><span class="co">#&gt; --------------------------</span></span>
+<span><span class="co">#&gt; Samples      : 100</span></span>
+<span><span class="co">#&gt; Features     : 100</span></span>
+<span><span class="co">#&gt; Data Layers  : 2</span></span>
+<span><span class="co">#&gt; Layer Names  : input, qc</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample Summary Layers : input, qc</span></span>
+<span><span class="co">#&gt; Feature Summary Layers: input, qc</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample Annotation (metadata):</span></span>
+<span><span class="co">#&gt;   Columns: 8</span></span>
+<span><span class="co">#&gt;   Names  : sample_id, neg, pos, run_day, box_id, lot, reason_excluded, excluded</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Feature Annotation (metadata):</span></span>
+<span><span class="co">#&gt;   Columns: 8</span></span>
+<span><span class="co">#&gt;   Names  : feature_id, metabolite_id, platform, pathway, kegg, group_hmdb, reason_excluded, excluded</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Exclusion Codes Summary:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Sample Exclusions:</span></span>
+<span><span class="co">#&gt; Exclusion | Count</span></span>
+<span><span class="co">#&gt; -----------------</span></span>
+<span><span class="co">#&gt; user_excluded                     | 0</span></span>
+<span><span class="co">#&gt; extreme_sample_missingness        | 0</span></span>
+<span><span class="co">#&gt; user_defined_sample_missingness   | 2</span></span>
+<span><span class="co">#&gt; user_defined_sample_totalpeakarea | 0</span></span>
+<span><span class="co">#&gt; user_defined_sample_pca_outlier   | 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Feature Exclusions:</span></span>
+<span><span class="co">#&gt; Exclusion | Count</span></span>
+<span><span class="co">#&gt; -----------------</span></span>
+<span><span class="co">#&gt; user_excluded                    | 0</span></span>
+<span><span class="co">#&gt; extreme_feature_missingness      | 0</span></span>
+<span><span class="co">#&gt; user_defined_feature_missingness | 0</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="plot-a-dendrogram-of-the-feature-tree">Plot a dendrogram of the feature tree<a class="anchor" aria-label="anchor" href="#plot-a-dendrogram-of-the-feature-tree"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># view feature tree</span></span>
+<span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">@</span><span class="va">feature_summary</span>, <span class="st">"qc_tree"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span>, hang <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">0.75</span>, main <span class="op">=</span> <span class="st">"Example Dataset Feature Tree"</span>, sub <span class="op">=</span> <span class="st">""</span>, xlab <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-treeplot-1.png" alt="Dendrogram" width="100%"></p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
@@ -127,7 +265,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

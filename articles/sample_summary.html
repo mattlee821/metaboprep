@@ -6,7 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Sample summary • metaboprep</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +21,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">metaboprep</a>
 
@@ -33,12 +38,25 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/batch_normalise.html">Batch Normalise</a></li>
-    <li><a class="dropdown-item" href="../articles/feature_summary.html">Feature summary</a></li>
-    <li><a class="dropdown-item" href="../articles/generate_report.html">Generate QC Report</a></li>
-    <li><a class="dropdown-item" href="../articles/pc_and_outliers.html">PCA outliers</a></li>
-    <li><a class="dropdown-item" href="../articles/sample_summary.html">Sample summary</a></li>
-    <li><a class="dropdown-item" href="../articles/summarise.html">Summarise</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Importing Data</h6></li>
+    <li><a class="dropdown-item" href="../articles/metabolon.html">Metabolon</a></li>
+    <li><a class="dropdown-item" href="../articles/nightingale.html">Nightingale</a></li>
+    <li><a class="dropdown-item" href="../articles/olink.html">Olink</a></li>
+    <li><a class="dropdown-item" href="../articles/somalogic.html">Somalogic</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Summaries</h6></li>
+    <li><a class="dropdown-item" href="../articles/sample_summary.html">Samples</a></li>
+    <li><a class="dropdown-item" href="../articles/feature_summary.html">Features</a></li>
+    <li><a class="dropdown-item" href="../articles/quality_control.html">QC pipeline</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Reports</h6></li>
+    <li><a class="dropdown-item" href="../articles/generate_report.html">Generate HTML/PDF</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Exporting Data</h6></li>
+    <li><a class="dropdown-item" href="../articles/export.html">Export</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Other</h6></li>
+    <li><a class="dropdown-item" href="../articles/batch_normalise.html">Batch normalisation</a></li>
   </ul>
 </li>
       </ul>
@@ -46,6 +64,14 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -55,7 +81,7 @@
 
 
 
-
+<script src="sample_summary_files/kePrint-0.0.1/kePrint.js"></script><link href="sample_summary_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Sample summary</h1>
@@ -79,136 +105,250 @@
 <span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"dummy_features.csv"</span>, package <span class="op">=</span> <span class="st">"metaboprep"</span><span class="op">)</span>, header<span class="op">=</span><span class="cn">T</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># create object</span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Metaboprep.html">Metaboprep</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, samples <span class="op">=</span> <span class="va">samples</span>, features <span class="op">=</span> <span class="va">features</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># print</span></span>
-<span><span class="va">m</span></span>
-<span><span class="co">#&gt; &lt;metaboprep::Metaboprep&gt;</span></span>
-<span><span class="co">#&gt;  @ data           : num [1:100, 1:20, 1] 0.755887 0.662386 0.444527 0.627146 0.000465 ...</span></span>
-<span><span class="co">#&gt;  .. - attr(*, "dimnames")=List of 3</span></span>
-<span><span class="co">#&gt;  ..  ..$ : chr [1:100] "id_100" "id_99" "id_98" "id_97" ...</span></span>
-<span><span class="co">#&gt;  ..  ..$ : chr [1:20] "metab_id_1" "metab_id_2" "metab_id_3" "metab_id_4" ...</span></span>
-<span><span class="co">#&gt;  ..  ..$ : chr "input"</span></span>
-<span><span class="co">#&gt;  @ samples        :'data.frame': 100 obs. of  5 variables:</span></span>
-<span><span class="co">#&gt;  .. $ sample_id: chr  "id_100" "id_99" "id_98" "id_97" ...</span></span>
-<span><span class="co">#&gt;  .. $ age      : int  29 47 65 57 52 40 42 63 49 42 ...</span></span>
-<span><span class="co">#&gt;  .. $ sex      : chr  "male" "male" "female" "female" ...</span></span>
-<span><span class="co">#&gt;  .. $ pos      : chr  "batch2" "batch1" "batch2" "batch1" ...</span></span>
-<span><span class="co">#&gt;  .. $ neg      : chr  "batch2" "batch2" "batch2" "batch1" ...</span></span>
-<span><span class="co">#&gt;  @ features       :'data.frame': 20 obs. of  5 variables:</span></span>
-<span><span class="co">#&gt;  .. $ feature_id        : chr  "metab_id_1" "metab_id_2" "metab_id_3" "metab_id_4" ...</span></span>
-<span><span class="co">#&gt;  .. $ platform          : chr  "neg" "neg" "neg" "pos" ...</span></span>
-<span><span class="co">#&gt;  .. $ pathway           : logi  NA NA NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  .. $ derived_feature   : logi  TRUE FALSE FALSE FALSE FALSE FALSE ...</span></span>
-<span><span class="co">#&gt;  .. $ xenobiotic_feature: logi  FALSE FALSE FALSE FALSE FALSE FALSE ...</span></span>
-<span><span class="co">#&gt;  @ exclusions     :List of 2</span></span>
-<span><span class="co">#&gt;  .. $ samples :List of 5</span></span>
-<span><span class="co">#&gt;  ..  ..$ user_excluded                    : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..$ extreme_sample_missingness       : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..$ user_defined_sample_missingness  : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..$ user_defined_sample_totalpeakarea: chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..$ user_defined_sample_pca_outlier  : chr(0) </span></span>
-<span><span class="co">#&gt;  .. $ features:List of 3</span></span>
-<span><span class="co">#&gt;  ..  ..$ user_excluded                   : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..$ extreme_feature_missingness     : chr(0) </span></span>
-<span><span class="co">#&gt;  ..  ..$ user_defined_feature_missingness: chr(0) </span></span>
-<span><span class="co">#&gt;  @ feature_summary: num[0 , 0 , 0 ] </span></span>
-<span><span class="co">#&gt;  @ sample_summary : num[0 , 0 , 0 ]</span></span></code></pre></div>
+<span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/class_metaboprep.html">Metaboprep</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, samples <span class="op">=</span> <span class="va">samples</span>, features <span class="op">=</span> <span class="va">features</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="summary-of-metaboprep-object">Summary of Metaboprep object<a class="anchor" aria-label="anchor" href="#summary-of-metaboprep-object"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Metaboprep Object Summary</span></span>
+<span><span class="co">#&gt; --------------------------</span></span>
+<span><span class="co">#&gt; Samples      : 100</span></span>
+<span><span class="co">#&gt; Features     : 20</span></span>
+<span><span class="co">#&gt; Data Layers  : 1</span></span>
+<span><span class="co">#&gt; Layer Names  : input</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample Summary Layers : none</span></span>
+<span><span class="co">#&gt; Feature Summary Layers: none</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample Annotation (metadata):</span></span>
+<span><span class="co">#&gt;   Columns: 5</span></span>
+<span><span class="co">#&gt;   Names  : sample_id, age, sex, pos, neg</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Feature Annotation (metadata):</span></span>
+<span><span class="co">#&gt;   Columns: 5</span></span>
+<span><span class="co">#&gt;   Names  : feature_id, platform, pathway, derived_feature, xenobiotic_feature</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Exclusion Codes Summary:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Sample Exclusions:</span></span>
+<span><span class="co">#&gt; Exclusion | Count</span></span>
+<span><span class="co">#&gt; -----------------</span></span>
+<span><span class="co">#&gt; user_excluded                     | 0</span></span>
+<span><span class="co">#&gt; extreme_sample_missingness        | 0</span></span>
+<span><span class="co">#&gt; user_defined_sample_missingness   | 0</span></span>
+<span><span class="co">#&gt; user_defined_sample_totalpeakarea | 0</span></span>
+<span><span class="co">#&gt; user_defined_sample_pca_outlier   | 0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Feature Exclusions:</span></span>
+<span><span class="co">#&gt; Exclusion | Count</span></span>
+<span><span class="co">#&gt; -----------------</span></span>
+<span><span class="co">#&gt; user_excluded                    | 0</span></span>
+<span><span class="co">#&gt; extreme_feature_missingness      | 0</span></span>
+<span><span class="co">#&gt; user_defined_feature_missingness | 0</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="run-sample-summary">Run sample summary<a class="anchor" aria-label="anchor" href="#run-sample-summary"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sample_summ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sample_summary.html">sample_summary</a></span><span class="op">(</span>metaboprep    <span class="op">=</span> <span class="va">m</span>, </span>
-<span>                              source_layer  <span class="op">=</span> <span class="st">"input"</span>, </span>
-<span>                              outlier_udist <span class="op">=</span> <span class="fl">1.0</span>, </span>
-<span>                              output        <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Running Sample Summary Statistics...</span></span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="14%">
-<col width="17%">
-<col width="14%">
-<col width="32%">
-<col width="20%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">sample_id</th>
-<th align="right">missingness</th>
-<th align="right">tpa_total</th>
-<th align="right">tpa_complete_features</th>
-<th align="right">outlier_count</th>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># note that for illustrative purposes we are using a log outlier unit distance of 1.0 here, in practice we tend to favor a value of 5.0.</span></span>
+<span><span class="va">sample_sum1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sample_summary.html">sample_summary</a></span><span class="op">(</span>metaboprep      <span class="op">=</span> <span class="va">mydata</span>, </span>
+<span>                              source_layer    <span class="op">=</span> <span class="st">"input"</span>, </span>
+<span>                              outlier_udist   <span class="op">=</span> <span class="fl">1.0</span>,</span>
+<span>                              output          <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="table-of-sample-summary">Table of sample summary<a class="anchor" aria-label="anchor" href="#table-of-sample-summary"></a>
+</h2>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+sample_id
+</th>
+<th style="text-align:center;">
+missingness
+</th>
+<th style="text-align:center;">
+tpa_total
+</th>
+<th style="text-align:center;">
+tpa_complete_features
+</th>
+<th style="text-align:center;">
+outlier_count
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">id_100</td>
-<td align="right">0</td>
-<td align="right">38.699</td>
-<td align="right">38.699</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_100
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+38.699
+</td>
+<td style="text-align:center;">
+38.699
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_99</td>
-<td align="right">0</td>
-<td align="right">39.451</td>
-<td align="right">39.451</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_99
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+39.451
+</td>
+<td style="text-align:center;">
+39.451
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_98</td>
-<td align="right">0</td>
-<td align="right">45.135</td>
-<td align="right">45.135</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:center;">
+id_98
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+45.135
+</td>
+<td style="text-align:center;">
+45.135
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_97</td>
-<td align="right">0</td>
-<td align="right">37.289</td>
-<td align="right">37.289</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:center;">
+id_97
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+37.289
+</td>
+<td style="text-align:center;">
+37.289
+</td>
+<td style="text-align:center;">
+2
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_96</td>
-<td align="right">0</td>
-<td align="right">31.545</td>
-<td align="right">31.545</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:center;">
+id_96
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+31.545
+</td>
+<td style="text-align:center;">
+31.545
+</td>
+<td style="text-align:center;">
+3
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_95</td>
-<td align="right">0</td>
-<td align="right">36.751</td>
-<td align="right">36.751</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:center;">
+id_95
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+36.751
+</td>
+<td style="text-align:center;">
+36.751
+</td>
+<td style="text-align:center;">
+2
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_94</td>
-<td align="right">0</td>
-<td align="right">37.384</td>
-<td align="right">37.384</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_94
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+37.384
+</td>
+<td style="text-align:center;">
+37.384
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_93</td>
-<td align="right">0</td>
-<td align="right">34.069</td>
-<td align="right">34.069</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_93
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+34.069
+</td>
+<td style="text-align:center;">
+34.069
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_92</td>
-<td align="right">0</td>
-<td align="right">38.942</td>
-<td align="right">38.942</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_92
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+38.942
+</td>
+<td style="text-align:center;">
+38.942
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_91</td>
-<td align="right">0</td>
-<td align="right">42.743</td>
-<td align="right">42.743</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:center;">
+id_91
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+42.743
+</td>
+<td style="text-align:center;">
+42.743
+</td>
+<td style="text-align:center;">
+2
+</td>
 </tr>
 </tbody>
 </table>
@@ -220,99 +360,1812 @@
 arguments you can run the summary for a subset of the data. Note: all
 rows will be return, however summary data will only be returned for the
 specified ids.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sample_summ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sample_summary.html">sample_summary</a></span><span class="op">(</span>metaboprep    <span class="op">=</span> <span class="va">m</span>, </span>
-<span>                              source_layer  <span class="op">=</span> <span class="st">"input"</span>, </span>
-<span>                              outlier_udist <span class="op">=</span> <span class="fl">1.0</span>,</span>
-<span>                              sample_ids    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id_96"</span>, <span class="st">"id_97"</span>, <span class="st">"id_98"</span>, <span class="st">"id_99"</span>, <span class="st">"id_100"</span><span class="op">)</span>,</span>
-<span>                              feature_ids   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"metab_id_1"</span>, <span class="st">"metab_id_2"</span>, <span class="st">"metab_id_3"</span><span class="op">)</span>,</span>
-<span>                              output        <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Running Sample Summary Statistics...</span></span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="14%">
-<col width="17%">
-<col width="14%">
-<col width="32%">
-<col width="20%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">sample_id</th>
-<th align="right">missingness</th>
-<th align="right">tpa_total</th>
-<th align="right">tpa_complete_features</th>
-<th align="right">outlier_count</th>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## define a vector of sample IDs</span></span>
+<span><span class="va">sids</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">@</span><span class="va">samples</span><span class="op">[</span><span class="va">mydata</span><span class="op">@</span><span class="va">samples</span><span class="op">$</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"female"</span>, <span class="st">"sample_id"</span><span class="op">]</span> </span>
+<span></span>
+<span><span class="co">## define a vector of feature IDs</span></span>
+<span><span class="va">fids</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">@</span><span class="va">features</span><span class="op">[</span>, <span class="st">"feature_id"</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># run sample summary on subset</span></span>
+<span><span class="va">sample_sum_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sample_summary.html">sample_summary</a></span><span class="op">(</span>metaboprep    <span class="op">=</span> <span class="va">mydata</span>, </span>
+<span>                                    source_layer  <span class="op">=</span> <span class="st">"input"</span>, </span>
+<span>                                    outlier_udist <span class="op">=</span> <span class="fl">1.0</span>,</span>
+<span>                                    sample_ids    <span class="op">=</span> <span class="va">sids</span>,</span>
+<span>                                    feature_ids   <span class="op">=</span> <span class="va">fids</span>,</span>
+<span>                                    output        <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="table-of-sample-summary-on-subset">Table of sample summary on subset<a class="anchor" aria-label="anchor" href="#table-of-sample-summary-on-subset"></a>
+</h2>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+sample_id
+</th>
+<th style="text-align:center;">
+missingness
+</th>
+<th style="text-align:center;">
+tpa_total
+</th>
+<th style="text-align:center;">
+tpa_complete_features
+</th>
+<th style="text-align:center;">
+outlier_count
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">id_100</td>
-<td align="right">0</td>
-<td align="right">4.876</td>
-<td align="right">4.876</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_98
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+22.241
+</td>
+<td style="text-align:center;">
+22.241
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_99</td>
-<td align="right">0</td>
-<td align="right">6.632</td>
-<td align="right">6.632</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:center;">
+id_97
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+15.765
+</td>
+<td style="text-align:center;">
+15.765
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_98</td>
-<td align="right">0</td>
-<td align="right">5.907</td>
-<td align="right">5.907</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:center;">
+id_96
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+17.082
+</td>
+<td style="text-align:center;">
+17.082
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_97</td>
-<td align="right">0</td>
-<td align="right">6.575</td>
-<td align="right">6.575</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:center;">
+id_94
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+17.010
+</td>
+<td style="text-align:center;">
+17.010
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_96</td>
-<td align="right">0</td>
-<td align="right">0.870</td>
-<td align="right">0.870</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:center;">
+id_93
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+17.478
+</td>
+<td style="text-align:center;">
+17.478
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_95</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<tr>
+<td style="text-align:center;">
+id_92
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+22.147
+</td>
+<td style="text-align:center;">
+22.147
+</td>
+<td style="text-align:center;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_94</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<tr>
+<td style="text-align:center;">
+id_90
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+14.568
+</td>
+<td style="text-align:center;">
+14.568
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_93</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<tr>
+<td style="text-align:center;">
+id_89
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+22.601
+</td>
+<td style="text-align:center;">
+22.601
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">id_92</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<tr>
+<td style="text-align:center;">
+id_88
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+18.243
+</td>
+<td style="text-align:center;">
+18.243
+</td>
+<td style="text-align:center;">
+2
+</td>
 </tr>
-<tr class="even">
-<td align="left">id_91</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<tr>
+<td style="text-align:center;">
+id_87
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+17.149
+</td>
+<td style="text-align:center;">
+17.149
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="run-pca-analysis">Run PCA analysis<a class="anchor" aria-label="anchor" href="#run-pca-analysis"></a>
+</h2>
+<p><code><a href="../reference/pc_and_outliers.html">pc_and_outliers()</a></code> performs principal component analysis.
+Missing data is imputed to the median and used to identify the number of
+informative or ‘significant’ PCs by (1) an acceleration analysis, and
+(2) a parallel analysis. Finally the number of sample outliers are
+determined at 3, 4, and 5 standard deviations from the mean on the top
+PCs as determined by the acceleration factor analysis.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pc_analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pc_and_outliers.html">pc_and_outliers</a></span><span class="op">(</span>metaboprep   <span class="op">=</span> <span class="va">mydata</span>, </span>
+<span>                               source_layer <span class="op">=</span> <span class="st">"input"</span>,</span>
+<span>                               sample_ids   <span class="op">=</span> <span class="va">sids</span>, <span class="co">## It is also possible to run on a subset of samples and/or features</span></span>
+<span>                               feature_ids  <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>                               <span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="table-of-pca-analysis-results">Table of PCA analysis results<a class="anchor" aria-label="anchor" href="#table-of-pca-analysis-results"></a>
+</h2>
+<p>Returned are the PC eigenvectors for the top 10 PCs, and outlier
+counts at 3, 4, and 5 standard deviations from the mean for the top two
+PCs</p>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+sample_id
+</th>
+<th style="text-align:center;">
+pc1
+</th>
+<th style="text-align:center;">
+pc2
+</th>
+<th style="text-align:center;">
+pc3
+</th>
+<th style="text-align:center;">
+pc4
+</th>
+<th style="text-align:center;">
+pc5
+</th>
+<th style="text-align:center;">
+pc6
+</th>
+<th style="text-align:center;">
+pc7
+</th>
+<th style="text-align:center;">
+pc8
+</th>
+<th style="text-align:center;">
+pc9
+</th>
+<th style="text-align:center;">
+pc10
+</th>
+<th style="text-align:center;">
+pc1_3_sd_outlier
+</th>
+<th style="text-align:center;">
+pc2_3_sd_outlier
+</th>
+<th style="text-align:center;">
+pc3_3_sd_outlier
+</th>
+<th style="text-align:center;">
+pc1_4_sd_outlier
+</th>
+<th style="text-align:center;">
+pc2_4_sd_outlier
+</th>
+<th style="text-align:center;">
+pc3_4_sd_outlier
+</th>
+<th style="text-align:center;">
+pc1_5_sd_outlier
+</th>
+<th style="text-align:center;">
+pc2_5_sd_outlier
+</th>
+<th style="text-align:center;">
+pc3_5_sd_outlier
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+id_98
+</td>
+<td style="text-align:center;">
+1.504
+</td>
+<td style="text-align:center;">
+-0.899
+</td>
+<td style="text-align:center;">
+-0.072
+</td>
+<td style="text-align:center;">
+-0.987
+</td>
+<td style="text-align:center;">
+1.221
+</td>
+<td style="text-align:center;">
+0.429
+</td>
+<td style="text-align:center;">
+-1.603
+</td>
+<td style="text-align:center;">
+0.586
+</td>
+<td style="text-align:center;">
+-1.086
+</td>
+<td style="text-align:center;">
+-0.193
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_97
+</td>
+<td style="text-align:center;">
+0.826
+</td>
+<td style="text-align:center;">
+0.458
+</td>
+<td style="text-align:center;">
+1.623
+</td>
+<td style="text-align:center;">
+0.188
+</td>
+<td style="text-align:center;">
+-1.195
+</td>
+<td style="text-align:center;">
+1.666
+</td>
+<td style="text-align:center;">
+-1.318
+</td>
+<td style="text-align:center;">
+-2.481
+</td>
+<td style="text-align:center;">
+-1.081
+</td>
+<td style="text-align:center;">
+1.007
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_96
+</td>
+<td style="text-align:center;">
+-2.067
+</td>
+<td style="text-align:center;">
+0.785
+</td>
+<td style="text-align:center;">
+-1.024
+</td>
+<td style="text-align:center;">
+1.720
+</td>
+<td style="text-align:center;">
+1.435
+</td>
+<td style="text-align:center;">
+0.663
+</td>
+<td style="text-align:center;">
+1.057
+</td>
+<td style="text-align:center;">
+-0.073
+</td>
+<td style="text-align:center;">
+-1.554
+</td>
+<td style="text-align:center;">
+-0.479
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_94
+</td>
+<td style="text-align:center;">
+-1.635
+</td>
+<td style="text-align:center;">
+1.103
+</td>
+<td style="text-align:center;">
+0.791
+</td>
+<td style="text-align:center;">
+1.214
+</td>
+<td style="text-align:center;">
+-0.920
+</td>
+<td style="text-align:center;">
+-0.986
+</td>
+<td style="text-align:center;">
+1.635
+</td>
+<td style="text-align:center;">
+0.401
+</td>
+<td style="text-align:center;">
+-0.521
+</td>
+<td style="text-align:center;">
+1.214
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_93
+</td>
+<td style="text-align:center;">
+-1.399
+</td>
+<td style="text-align:center;">
+1.202
+</td>
+<td style="text-align:center;">
+-0.168
+</td>
+<td style="text-align:center;">
+-2.277
+</td>
+<td style="text-align:center;">
+1.068
+</td>
+<td style="text-align:center;">
+-1.482
+</td>
+<td style="text-align:center;">
+-0.129
+</td>
+<td style="text-align:center;">
+-1.497
+</td>
+<td style="text-align:center;">
+0.834
+</td>
+<td style="text-align:center;">
+1.243
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_92
+</td>
+<td style="text-align:center;">
+2.299
+</td>
+<td style="text-align:center;">
+0.640
+</td>
+<td style="text-align:center;">
+1.312
+</td>
+<td style="text-align:center;">
+0.308
+</td>
+<td style="text-align:center;">
+-0.094
+</td>
+<td style="text-align:center;">
+0.492
+</td>
+<td style="text-align:center;">
+0.595
+</td>
+<td style="text-align:center;">
+-0.751
+</td>
+<td style="text-align:center;">
+0.994
+</td>
+<td style="text-align:center;">
+-1.484
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_90
+</td>
+<td style="text-align:center;">
+-0.723
+</td>
+<td style="text-align:center;">
+1.214
+</td>
+<td style="text-align:center;">
+1.251
+</td>
+<td style="text-align:center;">
+1.834
+</td>
+<td style="text-align:center;">
+-1.257
+</td>
+<td style="text-align:center;">
+0.548
+</td>
+<td style="text-align:center;">
+-1.184
+</td>
+<td style="text-align:center;">
+-1.282
+</td>
+<td style="text-align:center;">
+0.829
+</td>
+<td style="text-align:center;">
+0.076
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_89
+</td>
+<td style="text-align:center;">
+-0.292
+</td>
+<td style="text-align:center;">
+0.097
+</td>
+<td style="text-align:center;">
+2.914
+</td>
+<td style="text-align:center;">
+1.079
+</td>
+<td style="text-align:center;">
+-0.734
+</td>
+<td style="text-align:center;">
+-1.654
+</td>
+<td style="text-align:center;">
+0.601
+</td>
+<td style="text-align:center;">
+0.015
+</td>
+<td style="text-align:center;">
+-0.721
+</td>
+<td style="text-align:center;">
+0.914
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_88
+</td>
+<td style="text-align:center;">
+2.664
+</td>
+<td style="text-align:center;">
+1.542
+</td>
+<td style="text-align:center;">
+-2.028
+</td>
+<td style="text-align:center;">
+0.080
+</td>
+<td style="text-align:center;">
+0.419
+</td>
+<td style="text-align:center;">
+-0.416
+</td>
+<td style="text-align:center;">
+1.305
+</td>
+<td style="text-align:center;">
+-1.710
+</td>
+<td style="text-align:center;">
+0.352
+</td>
+<td style="text-align:center;">
+-0.213
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_87
+</td>
+<td style="text-align:center;">
+-2.053
+</td>
+<td style="text-align:center;">
+0.898
+</td>
+<td style="text-align:center;">
+-0.883
+</td>
+<td style="text-align:center;">
+0.960
+</td>
+<td style="text-align:center;">
+0.578
+</td>
+<td style="text-align:center;">
+1.764
+</td>
+<td style="text-align:center;">
+-0.703
+</td>
+<td style="text-align:center;">
+0.158
+</td>
+<td style="text-align:center;">
+0.812
+</td>
+<td style="text-align:center;">
+0.708
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="additional-attributes">Additional attributes<a class="anchor" aria-label="anchor" href="#additional-attributes"></a>
+</h2>
+<p>In addition, the variance explained vector is appended to the
+returned <code>data.frame</code> as and <code>attribute</code>. This can
+be accessed with the attribute name: <code>[source_layer]_varexp</code>,
+in this case we used the <code>input</code> data, therefore the
+attribute name is <code>input_varexp</code>. In a similar way, the
+results of the acceleration analysis (<code>input_num_pcs_scree</code>)
+and a parallel analysis (<code>input_num_pcs_parallel</code>) can also
+be extracted.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># extract varexp from attributes</span></span>
+<span><span class="va">varexp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">pc_analysis</span>, <span class="st">'input_varexp'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># subset to top 100 for nicer plotting</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">varexp</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span> <span class="va">varexp</span> <span class="op">&lt;-</span> <span class="va">varexp</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># get acceleration and parallel analysis results</span></span>
+<span><span class="va">af</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">pc_analysis</span>, <span class="st">'input_num_pcs_scree'</span><span class="op">)</span></span>
+<span><span class="va">np</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">pc_analysis</span>, <span class="st">'input_num_pcs_parallel'</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">af</span><span class="op">==</span><span class="va">np</span><span class="op">)</span> <span class="va">np</span> <span class="op">&lt;-</span> <span class="va">np</span><span class="op">+</span><span class="fl">0.1</span> <span class="co"># make line visible if equal</span></span>
+<span></span>
+<span><span class="co"># as data.frame</span></span>
+<span><span class="va">x_labs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"(?i)pc"</span>,<span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">varexp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ve</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"pc"</span>      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">x_labs</span>, levels<span class="op">=</span><span class="va">x_labs</span><span class="op">)</span>,</span>
+<span>                     <span class="st">"var_exp"</span> <span class="op">=</span> <span class="va">varexp</span><span class="op">)</span></span>
+<span><span class="va">lines</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"Analysis"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acceleration"</span>, <span class="st">"Parallel"</span><span class="op">)</span>, </span>
+<span>                     <span class="st">"pc"</span>       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">af</span>, <span class="va">np</span><span class="op">)</span><span class="op">)</span>   </span>
+<span></span>
+<span><span class="co"># plot</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">ve</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pc</span>, y <span class="op">=</span> <span class="va">var_exp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, fill <span class="op">=</span> <span class="st">"#377EB8"</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">lines</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">pc</span>, color <span class="op">=</span> <span class="va">Analysis</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acceleration"</span><span class="op">=</span><span class="st">"#E41A1C"</span>, <span class="st">"Parallel"</span><span class="op">=</span><span class="st">"#4DAF4A"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">10</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">|</span> <span class="va">x</span><span class="op">==</span><span class="fl">1</span>, <span class="va">x</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"PC"</span>, y <span class="op">=</span> <span class="st">"Variance explained"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="sample_summary_files/figure-html/ScreePlot-1.png" class="r-plt" alt="Variance explained" width="100%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="run-sample-feature-summaries-together">Run sample &amp; feature summaries together<a class="anchor" aria-label="anchor" href="#run-sample-feature-summaries-together"></a>
+</h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sf_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarise.html">summarise</a></span><span class="op">(</span>metaboprep    <span class="op">=</span> <span class="va">mydata</span>, </span>
+<span>                    source_layer    <span class="op">=</span> <span class="st">"input"</span>, </span>
+<span>                    outlier_udist   <span class="op">=</span> <span class="fl">1.0</span>,</span>
+<span>                    tree_cut_height <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>                    sample_ids      <span class="op">=</span> <span class="va">sids</span>, <span class="co">## It is also possible to run on a subset of samples and/or features</span></span>
+<span>                    feature_ids     <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                    output          <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## two data frames are returned as a list object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sf_sum</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "sample_summary"  "feature_summary"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="table-of-sample-summary-on-subset-1">Table of sample summary on subset<a class="anchor" aria-label="anchor" href="#table-of-sample-summary-on-subset-1"></a>
+</h2>
+<p>Note that when the summarise() function is used the sample summary
+now includes PCA derived summary data. This is not the case when the
+sample_summary() function is run alone, as seen above. The reason for
+the difference is because the PCA data is dependent upon the
+feature_summary() analysis.</p>
+<p>Also, please note that when running on a subset, you are returned the
+full summary for all samples and features, but only the summary data for
+the specified subset will be populated, the rest will be
+<code>NA</code>.</p>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+sample_id
+</th>
+<th style="text-align:center;">
+missingness
+</th>
+<th style="text-align:center;">
+tpa_total
+</th>
+<th style="text-align:center;">
+tpa_complete_features
+</th>
+<th style="text-align:center;">
+outlier_count
+</th>
+<th style="text-align:center;">
+pc1
+</th>
+<th style="text-align:center;">
+pc2
+</th>
+<th style="text-align:center;">
+pc3
+</th>
+<th style="text-align:center;">
+pc4
+</th>
+<th style="text-align:center;">
+pc5
+</th>
+<th style="text-align:center;">
+pc6
+</th>
+<th style="text-align:center;">
+pc7
+</th>
+<th style="text-align:center;">
+pc8
+</th>
+<th style="text-align:center;">
+pc9
+</th>
+<th style="text-align:center;">
+pc10
+</th>
+<th style="text-align:center;">
+pc1_3_sd_outlier
+</th>
+<th style="text-align:center;">
+pc2_3_sd_outlier
+</th>
+<th style="text-align:center;">
+pc3_3_sd_outlier
+</th>
+<th style="text-align:center;">
+pc1_4_sd_outlier
+</th>
+<th style="text-align:center;">
+pc2_4_sd_outlier
+</th>
+<th style="text-align:center;">
+pc3_4_sd_outlier
+</th>
+<th style="text-align:center;">
+pc1_5_sd_outlier
+</th>
+<th style="text-align:center;">
+pc2_5_sd_outlier
+</th>
+<th style="text-align:center;">
+pc3_5_sd_outlier
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+id_100
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_99
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_98
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+45.392
+</td>
+<td style="text-align:center;">
+45.392
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1.504
+</td>
+<td style="text-align:center;">
+-0.899
+</td>
+<td style="text-align:center;">
+-0.072
+</td>
+<td style="text-align:center;">
+-0.987
+</td>
+<td style="text-align:center;">
+1.221
+</td>
+<td style="text-align:center;">
+0.429
+</td>
+<td style="text-align:center;">
+-1.603
+</td>
+<td style="text-align:center;">
+0.586
+</td>
+<td style="text-align:center;">
+-1.086
+</td>
+<td style="text-align:center;">
+-0.193
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_97
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+37.473
+</td>
+<td style="text-align:center;">
+37.473
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.826
+</td>
+<td style="text-align:center;">
+0.458
+</td>
+<td style="text-align:center;">
+1.623
+</td>
+<td style="text-align:center;">
+0.188
+</td>
+<td style="text-align:center;">
+-1.195
+</td>
+<td style="text-align:center;">
+1.666
+</td>
+<td style="text-align:center;">
+-1.318
+</td>
+<td style="text-align:center;">
+-2.481
+</td>
+<td style="text-align:center;">
+-1.081
+</td>
+<td style="text-align:center;">
+1.007
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_96
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+32.042
+</td>
+<td style="text-align:center;">
+32.042
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+-2.067
+</td>
+<td style="text-align:center;">
+0.785
+</td>
+<td style="text-align:center;">
+-1.024
+</td>
+<td style="text-align:center;">
+1.720
+</td>
+<td style="text-align:center;">
+1.435
+</td>
+<td style="text-align:center;">
+0.663
+</td>
+<td style="text-align:center;">
+1.057
+</td>
+<td style="text-align:center;">
+-0.073
+</td>
+<td style="text-align:center;">
+-1.554
+</td>
+<td style="text-align:center;">
+-0.479
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_95
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_94
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+37.615
+</td>
+<td style="text-align:center;">
+37.615
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+-1.635
+</td>
+<td style="text-align:center;">
+1.103
+</td>
+<td style="text-align:center;">
+0.791
+</td>
+<td style="text-align:center;">
+1.214
+</td>
+<td style="text-align:center;">
+-0.920
+</td>
+<td style="text-align:center;">
+-0.986
+</td>
+<td style="text-align:center;">
+1.635
+</td>
+<td style="text-align:center;">
+0.401
+</td>
+<td style="text-align:center;">
+-0.521
+</td>
+<td style="text-align:center;">
+1.214
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_93
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+34.238
+</td>
+<td style="text-align:center;">
+34.238
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1.399
+</td>
+<td style="text-align:center;">
+1.202
+</td>
+<td style="text-align:center;">
+-0.168
+</td>
+<td style="text-align:center;">
+-2.277
+</td>
+<td style="text-align:center;">
+1.068
+</td>
+<td style="text-align:center;">
+-1.482
+</td>
+<td style="text-align:center;">
+-0.129
+</td>
+<td style="text-align:center;">
+-1.497
+</td>
+<td style="text-align:center;">
+0.834
+</td>
+<td style="text-align:center;">
+1.243
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_92
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+39.200
+</td>
+<td style="text-align:center;">
+39.200
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2.299
+</td>
+<td style="text-align:center;">
+0.640
+</td>
+<td style="text-align:center;">
+1.312
+</td>
+<td style="text-align:center;">
+0.308
+</td>
+<td style="text-align:center;">
+-0.094
+</td>
+<td style="text-align:center;">
+0.492
+</td>
+<td style="text-align:center;">
+0.595
+</td>
+<td style="text-align:center;">
+-0.751
+</td>
+<td style="text-align:center;">
+0.994
+</td>
+<td style="text-align:center;">
+-1.484
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+id_91
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
 </tr>
 </tbody>
 </table>
@@ -328,7 +2181,7 @@ specified ids.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
